@@ -1,0 +1,37 @@
+{
+  "name": "nodenews",
+  "version": "1.0.0",
+  "description": "A News Social Media platform",
+  "main": "backend.js",
+  "type": "module",
+  "devDependencies": {
+    "@eslint/css": "^0.14.1",
+    "@eslint/js": "^9.37.0",
+    "eslint": "^9.39.2",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-jest": "^29.15.0",
+    "eslint-plugin-react": "^7.37.5",
+    "globals": "^17.3.0",
+    "jest": "^30.2.0",
+    "prettier": "^3.8.1"
+  },
+  "scripts": {
+    "start": "node ./node_modules/nodemon/bin/nodemon.js backend.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Quzai24/NodeNews.git"
+  },
+  "keywords": [],
+  "author": "Avijit Singh and Nishant Naravarajula",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Quzai24/NodeNews/issues"
+  },
+  "homepage": "https://github.com/Quzai24/NodeNews#readme",
+  "dependencies": {
+    "express": "^5.2.1",
+    "nodemon": "^3.1.11"
+  }
+}

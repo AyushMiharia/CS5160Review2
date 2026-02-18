@@ -1,0 +1,187 @@
+/* General */
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #000;
+  color: #fff;
+}
+
+.container {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+a,
+p {
+  font-family: "Courier New", monospace;
+  color: #fff;
+  margin-bottom: 0;
+}
+
+h1 {
+  font-size: 3vw;
+  margin-bottom: 4vh;
+}
+
+h2 {
+  font-size: 2vw;
+  margin-bottom: 0;
+}
+
+p {
+  font-size: 1vw;
+}
+
+.btn {
+  font-family: "Courier New", monospace;
+  border-radius: 20px;
+  border: #fff solid 2px;
+  color: #fff;
+}
+
+/* Sidebar */
+.link {
+  margin-bottom: 2vh;
+}
+
+.active {
+  border-radius: 20px;
+  border: #fff solid 2px;
+}
+
+.navigation {
+  padding: 5vh 1vw;
+  border-right: 2px solid #fff;
+  height: 100vh;
+}
+
+footer {
+  position: fixed;
+  top: 90vh;
+}
+
+/* Main Content */
+.main {
+  padding: 5vh 5vw;
+}
+
+.post-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  overflow: scroll;
+  height: 80vh;
+}
+
+/* Search Bar Style */
+.search-container {
+  margin-bottom: 5vh;
+  background-color: #000;
+  border: #fff solid 2px;
+  border-radius: 20px;
+  padding: 0 1vw;
+  align-items: center;
+  height: 40px;
+}
+
+.search-bar {
+  width: calc(100% - 25px);
+  background-color: transparent;
+  border: none;
+  color: #fff;
+  font-size: 1vw;
+  padding-top: 10px;
+}
+
+input[type="text"] {
+  outline: none;
+  font-family: "Courier New", monospace;
+}
+
+.search-submit {
+  height: 20px;
+  width: 20px;
+  vertical-align: middle;
+}
+
+/* Post Style */
+.news-post {
+  border: #fff solid 2px;
+  border-radius: 20px;
+  padding: 15px;
+  gap: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* User Name Style */
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.profile-pic {
+  border-radius: 50%;
+  height: 3.5vw;
+  object-fit: scale-down;
+}
+
+.name {
+  font-size: 1.5vw;
+}
+
+.username {
+  font-size: 0.75vw;
+  color: #aaa;
+}
+
+/* Main Post Style */
+.post-content {
+  padding: 0 2vw;
+}
+
+/* Article Reference Style */
+.article-reference {
+  font-size: 0.75vw;
+  color: #aaa;
+  height: 100px;
+  border-radius: 20px;
+  border: #fff solid 2px;
+  display: flex;
+  gap: 20px;
+  overflow: hidden;
+}
+
+.article-image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+
+.article-details {
+  padding-top: 10px;
+}
+
+.article-title {
+  font-size: 1.25vw;
+}
+
+/* Vote Buttons */
+.vote-buttons {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.vote-icon {
+  width: 30px;
+  height: 30px;
+}

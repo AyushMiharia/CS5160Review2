@@ -3,7 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Node News</title>
+    <meta name="author" content="Avijit Singh and Nishant Naravarajula" />
+    <meta
+      name="description"
+      content="A simple news website built with Node.js, Express, and MongoDB."
+    />
+    <meta
+      name="keywords"
+      content="news, website, Node.js, Express, MongoDB, frontend, backend"
+    />
+    <title>News Node</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -13,16 +22,177 @@
     <link rel="stylesheet" href="./css/main.css" />
   </head>
   <body>
+    <!-- Sidebar Button for when small screen -->
+    <button
+      class="btn btn-outline-light d-md-none"
+      type="button"
+      data-bs-toggle="offcanvas"
+      data-bs-target="#offcanvasSidebar"
+      aria-label="Open menu"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Sidebar for small screens -->
+    <div
+      class="offcanvas offcanvas-start text-bg-dark"
+      id="offcanvasSidebar"
+      aria-labelledby="offcanvasSidebarLabel"
+    >
+      <div class="offcanvas-header">
+        <h4>News Node</h4>
+        <button
+          type="button"
+          class="btn-close btn-close-white"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="offcanvas-body">
+        <nav class="nav flex-column navigation">
+          <div class="link">
+            <a class="nav-link" href="#"
+              ><h3 class="profile">Profile Name</h3></a
+            >
+          </div>
+          <div class="link">
+            <a class="nav-link active" href="#"><h3>Home</h3></a>
+          </div>
+          <div class="link">
+            <a class="nav-link" href="#"><h3>Recent</h3></a>
+          </div>
+          <div class="link">
+            <a class="nav-link" href="#"><h3>Trending</h3></a>
+          </div>
+        </nav>
+        <footer>
+          <p>© 2026 News Node • <a href="../LICENSE">MIT License</a></p>
+        </footer>
+      </div>
+    </div>
+
     <div class="container">
-      <header>
-        <h1>Node News</h1>
-      </header>
-      <main>
-        <h2>Latest News</h2>
-      </main>
-      <footer>
-        <p>2026 NodeNews</p>
-      </footer>
+      <div class="row page-content">
+        <!-- Side Bar -->
+        <div class="col-3 col-1 sidebar d-none d-md-block">
+          <nav class="nav flex-column navigation">
+            <h1>News Node</h1>
+            <div class="link">
+              <a class="nav-link" href="#"
+                ><h2 class="profile">Profile Name</h2></a
+              >
+            </div>
+            <div class="link">
+              <a class="nav-link active" href="#"><h2>Home</h2></a>
+            </div>
+            <div class="link">
+              <a class="nav-link" href="#"><h2>Recent</h2></a>
+            </div>
+            <div class="link">
+              <a class="nav-link" href="#"><h2>Trending</h2></a>
+            </div>
+          </nav>
+          <footer>
+            <p>© 2026 News Node • <a href="../LICENSE">MIT License</a></p>
+          </footer>
+        </div>
+
+        <!-- Main Content -->
+        <div class="col-md-9 col-12 main">
+          <!-- Search Bar -->
+          <div class="search-container">
+            <form action="">
+              <input
+                class="search-bar"
+                type="text"
+                placeholder="Search.."
+                name="search"
+              />
+              <input
+                class="search-submit"
+                type="image"
+                src="../sourceimages/search.svg"
+              />
+            </form>
+          </div>
+          <!-- News Posts from API -->
+          <div class="post-container" id="post-container">
+            
+            <!-- Single Post Example -->
+            <div class="news-post">
+              <!-- User Data -->
+              <div class="user-info">
+                <a href="#user-link" class="user-link">
+                  <img
+                    class="profile-pic"
+                    src="../sourceimages/user.png"
+                    alt="Profile Picture"
+                  />
+                </a>
+                <div class="user-details">
+                  <p>
+                    <a href="#user-link" class="name user-link">John Smith</a>
+                    • Jan 1, 2026
+                  </p>
+                  <a class="username" href="#user-link">@johnsmith</a>
+                </div>
+              </div>
+
+              <!-- Post Content -->
+              <div class="post-content">
+                <p>
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                  Sequi, soluta, deleniti sunt dolorum dolor voluptate
+                  aspernatur voluptates quos sint voluptatum delectus rerum eius
+                  et enim temporibus, eligendi repudiandae nihil officiis!
+                </p>
+              </div>
+
+              <!-- Reference -->
+              <div class="article-reference">
+                <a href="#article-link" class="article-link"
+                  ><img
+                    class="article-image"
+                    src="../sourceimages/article-test.png"
+                    alt="Article Reference"
+                /></a>
+                <div class="article-details">
+                  <a href="#article-link" class="article-link">
+                    <p class="article-title">Article Title</p>
+                  </a>
+                  <p class="article-blurb">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Sequi, soluta, deleniti sunt dolorum dolor voluptate
+                    aspernatur voluptates quos sint voluptatum delectus rerum
+                    eius et enim temporibus, eligendi repudiandae nihil
+                    officiis!
+                  </p>
+                </div>
+              </div>
+
+              <!-- Up and Down Vote Buttons -->
+              <div class="vote-buttons">
+                <button class="btn btn-outline-light">
+                  <img
+                    class="vote-icon"
+                    src="../sourceimages/up-arrow.svg"
+                    alt="Upvote"
+                  />
+                </button>
+                <p>10</p>
+                <button class="btn btn-outline-light">
+                  <img
+                    class="vote-icon"
+                    src="../sourceimages/bottom-arrow.svg"
+                    alt="Downvote"
+                  />
+                </button>
+                <p>2</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <script type="module" src="./js/frontend.js"></script>
