@@ -24,7 +24,7 @@ const posts = [
       },
     ],
   },
-    {
+  {
     id: 2,
     author: "Alice Johnson",
     timestamp: "2024-06-02T15:30:00Z",

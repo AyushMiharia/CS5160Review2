@@ -15,8 +15,8 @@ function Posts() {
   const renderPosts = (posts) => {
     console.log("Rendering posts:", posts);
     const postContainer = document.getElementById("post-container");
-    postContainer.innerHTML = ""; 
-    for (const {author, content, timestamp} of posts) {
+    postContainer.innerHTML = "";
+    for (const { author, content, timestamp } of posts) {
       const postElement = document.createElement("div");
       postElement.className = "news-post";
       postElement.innerHTML = `

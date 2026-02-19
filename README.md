@@ -1,24 +1,27 @@
 # NodeNews
+
 A News Social Media platform
 
 # Developer
+
 Avijit (Vee) Singh
 Nishant Naravarajula (Nish)
 
-
 # Description:
-NewsNode is a news discussion platform where users can share, discover, and discuss current events through 
-article links and commentary. The platform uses a voting system and trending algorithms to surface the most 
-important discussions, helping users quickly identify what matters most. NewsNode provides a dedicated space 
-for serious news discussions where journalists can share original research and users can explore diverse 
+
+NewsNode is a news discussion platform where users can share, discover, and discuss current events through
+article links and commentary. The platform uses a voting system and trending algorithms to surface the most
+important discussions, helping users quickly identify what matters most. NewsNode provides a dedicated space
+for serious news discussions where journalists can share original research and users can explore diverse
 perspectives on important issues.
 
 # User Personas:
+
 1. Tired Office Worker Ahmed
-Needs to quickly catch up on important news without reading full articles. 
-Wants to see trending topics and community sentiment at a glance with limited time after work.
+   Needs to quickly catch up on important news without reading full articles.
+   Wants to see trending topics and community sentiment at a glance with limited time after work.
 2. Independent Journalist Casey
-Needs to share original research and independent perspectives with an engaged audience interested in serious journalism and meaningful discussion.
+   Needs to share original research and independent perspectives with an engaged audience interested in serious journalism and meaningful discussion.
 
 # User Stories:
 
@@ -28,7 +31,6 @@ As a user, I need to upvote/downvote posts and comments, so relevant content ris
 As a user, I need to comment on posts, so I can engage in debates about current events.
 As a user, I need to browse by category (Politics, Tech, Health), so I can focus on topics I'm interested in.
 As a user, I need to filter by trending periods, so I can catch up on recent discussions when I've been away.
-
 
 # Core Features:
 
@@ -40,16 +42,12 @@ Trending page with time-based filters
 Category-based filtering and search
 Homepage feed showing recent posts
 
-
 # Technical Stack:
 
 Backend: Node.js, Express.js, MongoDB native driver (no Mongoose)
 Frontend: Vanilla ES6 JavaScript (no frameworks), HTML5, CSS3
 Authentication: JWT (jsonwebtoken)
 Deployment: Render, MongoDB Atlas
-
-
-
 
 # Work Split:
 
