@@ -1,116 +1,128 @@
-console.log("Hello, World! This is the frontend JavaScript file.");
+console.log('Hello, World! This is the frontend JavaScript file.');
 
-function Posts() {
-  const me = {};
+const postContainer = document.getElementById('post-container');
+const categoryButtons = document.querySelectorAll('.category-btn');
+const searchBar = document.querySelector('.search-bar');
+const searchForm = document.querySelector('.search-container form');
 
-  me.showError = ({ msg, res, type = "danger" } = {}) => {
-    const main = document.getElementById("post-container");
-    const alert = document.createElement("div");
-    alert.className = `alert alert-${type}`;
-    alert.role = type;
-    alert.innerHTML = `${msg}: ${res.status} ${res.statusText}`;
-    main.prepend(alert);
-  };
+let activeCategory = '';
 
-  const renderPosts = (posts) => {
-    console.log("Rendering posts:", posts);
-    const postContainer = document.getElementById("post-container");
-    postContainer.innerHTML = "";
-    for (const { author, content, timestamp } of posts) {
-      const postElement = document.createElement("div");
-      postElement.className = "news-post";
-      postElement.innerHTML = `
-        <div class="news-post">
-          <!-- User Data -->
-          <div class="user-info">
-            <a href="#user-link" class="user-link">
-              <img
-                class="profile-pic"
-                src="../sourceimages/user.png"
-                alt="Profile Picture"
-              />
-            </a>
-            <div class="user-details">
-              <p>
-                <a href="#user-link" class="name user-link">${author}</a>
-                • ${new Date(timestamp).toLocaleString()}
-              </p>
-              <a class="username" href="#user-link">@johnsmith</a>
-            </div>
-          </div>
-            
-          <!-- Post Content -->
-          <div class="post-content">
+function showError(msg) {
+  postContainer.innerHTML = `<div class="alert alert-danger">${msg}</div>`;
+}
+
+function renderPosts(posts) {
+  if (posts.length === 0) {
+    postContainer.innerHTML = '<p class="text-muted">No posts found.</p>';
+    return;
+  }
+
+  postContainer.innerHTML = posts
+    .map(
+      (post) => `
+      <div class="news-post">
+        <div class="user-info">
+          <a href="#" class="user-link">
+            <img class="profile-pic" src="../sourceimages/user.png" alt="Profile Picture" />
+          </a>
+          <div class="user-details">
             <p>
-                ${content}
+              <a href="#" class="name user-link">${post.author || post.username || 'Unknown'}</a>
+              &bull; ${new Date(post.timestamp || post.createdAt).toLocaleDateString()}
             </p>
           </div>
-            
-          <!-- Reference -->
+        </div>
+        <div class="post-content">
+          <a href="post.html?id=${post._id}" class="post-link">
+            <h4>${post.title || ''}</h4>
+          </a>
+          <span class="badge bg-secondary">${post.category || 'General'}</span>
+          <p>${post.content}</p>
+        </div>
+        ${
+          post.articleUrl
+            ? `
           <div class="article-reference">
-            <a href="#article-link" class="article-link"
-              ><img
-                class="article-image"
-                src="../sourceimages/article-test.png"
-                alt="Article Reference"
-            /></a>
             <div class="article-details">
-              <a href="#article-link" class="article-link">
-                <p class="article-title">Article Title</p>
+              <a href="${post.articleUrl}" target="_blank" class="article-link">
+                <p class="article-title">${post.articleUrl}</p>
               </a>
-              <p class="article-blurb">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                Sequi, soluta, deleniti sunt dolorum dolor voluptate
-                aspernatur voluptates quos sint voluptatum delectus rerum
-                eius et enim temporibus, eligendi repudiandae nihil
-                officiis!
-              </p>
             </div>
           </div>
-            
-          <!-- Up and Down Vote Buttons -->
-          <div class="vote-buttons">
-            <button class="btn btn-outline-light">
-              <img
-                class="vote-icon"
-                src="../sourceimages/up-arrow.svg"
-                alt="Upvote"
-              />
-            </button>
-            <p>10</p>
-            <button class="btn btn-outline-light">
-              <img
-                class="vote-icon"
-                src="../sourceimages/bottom-arrow.svg"
-                alt="Downvote"
-              />
-            </button>
-            <p>2</p>
-          </div>
+        `
+            : ''
+        }
+        <div class="vote-buttons">
+          <button class="btn btn-outline-light">
+            <img class="vote-icon" src="../sourceimages/up-arrow.svg" alt="Upvote" />
+          </button>
+          <p>${post.voteCount || 0}</p>
+          <button class="btn btn-outline-light">
+            <img class="vote-icon" src="../sourceimages/bottom-arrow.svg" alt="Downvote" />
+          </button>
+          <p>${post.commentCount || 0} comments</p>
         </div>
-        `;
-      postContainer.appendChild(postElement);
-    }
-  };
+      </div>
+    `,
+    )
+    .join('');
+}
 
-  me.refreshPosts = async () => {
-    const res = await fetch("/api/posts");
+// Load posts — uses search API if filtering, otherwise loads all posts
+async function loadPosts() {
+  postContainer.innerHTML = '<p class="text-center text-muted">Loading...</p>';
+
+  const search = searchBar ? searchBar.value.trim() : '';
+
+  try {
+    let res;
+
+    if (activeCategory || search) {
+      let url = '/api/search?';
+      if (activeCategory) url += `category=${activeCategory}&`;
+      if (search) url += `q=${search}`;
+      res = await fetch(url);
+    } else {
+      res = await fetch('/api/posts');
+    }
 
     if (!res.ok) {
-      console.error("Failed to fetch posts:", res.status, res.statusText);
-      me.showError({ msg: "Failed to fetch posts", res });
+      showError(`Failed to fetch posts: ${res.status} ${res.statusText}`);
       return;
     }
 
-    const data = await res.json();
-    console.log("Fetched posts:", data);
-
-    renderPosts(data);
-  };
-
-  return me;
+    const posts = await res.json();
+    renderPosts(posts);
+  } catch (err) {
+    showError('Failed to load posts.');
+  }
 }
 
-const myPosts = Posts();
+// Category button clicks
+if (categoryButtons) {
+  categoryButtons.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      categoryButtons.forEach((b) => b.classList.remove('active'));
 
-myPosts.refreshPosts();
+      if (activeCategory === btn.dataset.category) {
+        activeCategory = '';
+      } else {
+        btn.classList.add('active');
+        activeCategory = btn.dataset.category;
+      }
+
+      loadPosts();
+    });
+  });
+}
+
+// Search form submit
+if (searchForm) {
+  searchForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    loadPosts();
+  });
+}
+
+// Load all posts on page load
+loadPosts();

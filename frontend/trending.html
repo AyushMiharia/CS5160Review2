@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="author" content="Avijit Singh and Nishant Naravarajula" />
+    <meta name="description" content="Trending news discussions" />
+    <title>NewsNode — Trending</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="./css/main.css" />
+    <link rel="stylesheet" href="./css/trending.css" />
+  </head>
+  <body>
+    <!-- Sidebar Button for small screen -->
+    <button
+      class="btn btn-outline-light d-md-none"
+      type="button"
+      data-bs-toggle="offcanvas"
+      data-bs-target="#offcanvasSidebar"
+      aria-label="Open menu"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Sidebar for small screens -->
+    <div
+      class="offcanvas offcanvas-start text-bg-dark"
+      id="offcanvasSidebar"
+      aria-labelledby="offcanvasSidebarLabel"
+    >
+      <div class="offcanvas-header">
+        <h4>NewsNode</h4>
+        <button
+          type="button"
+          class="btn-close btn-close-white"
+          data-bs-dismiss="offcanvas"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="offcanvas-body">
+        <nav class="nav flex-column navigation">
+          <div class="link">
+            <a class="nav-link" href="#"><h3 class="profile">Profile Name</h3></a>
+          </div>
+          <div class="link">
+            <a class="nav-link" href="./index.html"><h3>Home</h3></a>
+          </div>
+          <div class="link">
+            <a class="nav-link" href="./index.html"><h3>Recent</h3></a>
+          </div>
+          <div class="link">
+            <a class="nav-link active" href="./trending.html"><h3>Trending</h3></a>
+          </div>
+        </nav>
+        <footer>
+          <p>&copy; 2026 NewsNode &bull; <a href="../LICENSE">MIT License</a></p>
+        </footer>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row page-content">
+        <!-- Sidebar -->
+        <div class="col-3 col-1 sidebar d-none d-md-block">
+          <nav class="nav flex-column navigation">
+            <h1>News Node</h1>
+            <div class="link">
+              <a class="nav-link" href="#"><h2 class="profile">Profile Name</h2></a>
+            </div>
+            <div class="link">
+              <a class="nav-link" href="./index.html"><h2>Home</h2></a>
+            </div>
+            <div class="link">
+              <a class="nav-link" href="./index.html"><h2>Recent</h2></a>
+            </div>
+            <div class="link">
+              <a class="nav-link active" href="./trending.html"><h2>Trending</h2></a>
+            </div>
+          </nav>
+          <footer>
+            <p>&copy; 2026 News Node &bull; <a href="../LICENSE">MIT License</a></p>
+          </footer>
+        </div>
+
+        <!-- Main Content -->
+        <div class="col-md-9 col-12 main">
+          <h2 class="page-title">Trending</h2>
+
+          <!-- Time Period Buttons -->
+          <div class="period-buttons mb-3">
+            <button class="btn btn-outline-light active" data-period="today">Today</button>
+            <button class="btn btn-outline-light" data-period="week">This Week</button>
+            <button class="btn btn-outline-light" data-period="month">This Month</button>
+          </div>
+
+          <!-- Trending Posts List -->
+          <div id="trending-list">
+            <p class="text-center text-muted">Loading trending posts...</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="./js/trending.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

@@ -1,15 +1,26 @@
-import express from "express";
-import postsRouter from "./routes/posts.js";
+import express from 'express';
+import 'dotenv/config';
+import { connectDB } from './db/connection.js';
+import postsRouter from './routes/posts.js';
+import commentsRouter from './routes/comments.js';
+import votesRouter from './routes/votes.js';
+import trendingRouter from './routes/trending.js';
+import searchRouter from './routes/search.js';
 
 const PORT = process.env.PORT || 3000;
-
-console.log(`Initializing backend server...`);
 const app = express();
 
-app.use(express.static("frontend"));
+app.use(express.json());
+app.use(express.static('frontend'));
 
-app.use("/api", postsRouter);
+app.use('/api/posts', postsRouter);
+app.use('/api/comments', commentsRouter);
+app.use('/api/votes', votesRouter);
+app.use('/api/trending', trendingRouter);
+app.use('/api/search', searchRouter);
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+connectDB().then(() => {
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
 });

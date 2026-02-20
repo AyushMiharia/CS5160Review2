@@ -1,10 +1,10 @@
-import { Router } from "express";
-import { getDB } from "../db/connection.js";
+import { Router } from 'express';
+import { getDB } from '../db/connection.js';
 
 const router = Router();
 
 // GET /api/search?category=Politics&q=keyword
-router.get("/", async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const db = getDB();
     const { category, q } = req.query;
@@ -19,13 +19,13 @@ router.get("/", async (req, res) => {
     if (q) {
       // Search in title and content using regex (case insensitive)
       filter.$or = [
-        { title: { $regex: q, $options: "i" } },
-        { content: { $regex: q, $options: "i" } },
+        { title: { $regex: q, $options: 'i' } },
+        { content: { $regex: q, $options: 'i' } },
       ];
     }
 
     const posts = await db
-      .collection("posts")
+      .collection('posts')
       .find(filter)
       .sort({ createdAt: -1 })
       .limit(50)
@@ -33,17 +33,17 @@ router.get("/", async (req, res) => {
 
     res.json(posts);
   } catch (err) {
-    res.status(500).json({ error: "Failed to search posts." });
+    res.status(500).json({ error: 'Failed to search posts.' });
   }
 });
 
 // GET /api/search/categories — Get list of available categories
-router.get("/categories", async (req, res) => {
+router.get('/categories', async (req, res) => {
   try {
-    const categories = ["Politics", "Tech", "Health", "World", "Science"];
+    const categories = ['Politics', 'Tech', 'Health', 'World', 'Science'];
     res.json(categories);
   } catch (err) {
-    res.status(500).json({ error: "Failed to fetch categories." });
+    res.status(500).json({ error: 'Failed to fetch categories.' });
   }
 });
 
