@@ -20,7 +20,7 @@ loginSubmit.addEventListener('click', async (e) => {
     const data = await res.json();
     localStorage.setItem('token', data.token);
     localStorage.setItem('refreshToken', data.refreshToken);
-        // continue to index page on successful registration without alert
+    // continue to index page on successful registration without alert
     alert('Login successful!');
     window.location.href = '/index.html';
   } catch (err) {
