@@ -5,8 +5,6 @@ const searchForm = document.querySelector('.search-container form');
 
 let activeCategory = '';
 
-
-
 function showError(msg) {
   postContainer.innerHTML = `<div class="alert alert-danger">${msg}</div>`;
 }
@@ -27,7 +25,7 @@ function renderPosts(posts) {
           </a>
           <div class="user-details">
             <p>
-              <a href="#" class="name user-link">${post.author || post.username || 'Unknown'}</a>
+              <a href="./userpage.html?username=${post.author || post.username || 'Unknown'}" class="name user-link">${post.author || post.username || 'Unknown'}</a>
               &bull; ${new Date(post.timestamp || post.createdAt).toLocaleDateString()}
             </p>
           </div>
@@ -126,3 +124,5 @@ if (searchForm) {
 
 // Load all posts on page load
 loadPosts();
+
+export { showError, renderPosts };

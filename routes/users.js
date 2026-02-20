@@ -84,6 +84,7 @@ router.post('/login', async (req, res) => {
   }
 });
 
+// Token refresh
 router.post('/refresh', async (req, res) => {
   try {
     const db = getDB();
@@ -107,6 +108,7 @@ router.post('/refresh', async (req, res) => {
   }
 });
 
+// User logout
 router.delete('/logout', async (req, res) => {
   try {
     const db = getDB();
