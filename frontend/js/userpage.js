@@ -1,7 +1,9 @@
 import { refreshToken } from './api.js';
+import { apiGet, apiPost, apiPut, apiDelete } from './api.js';
 
 const postContainer = document.getElementById('post-container');
 const username = localStorage.getItem('username');
+const token = localStorage.getItem('token');
 
 document.addEventListener('DOMContentLoaded', () => {
   if (username) document.querySelectorAll('.profile').forEach((el) => (el.textContent = username));
@@ -44,19 +46,18 @@ function renderPosts(posts) {
           <div class="article-reference">
             <div class="article-details">
               <a href="${post.articleUrl}" target="_blank" class="article-link">
-                <p class="article-title">${post.articleUrl}</p>
-              </a>
+                <p class="article-title">${post.articleUrl}</p>\n              </a>
             </div>
           </div>
         `
             : ''
         }
         <div class="vote-buttons">
-          <button class="btn btn-outline-light">
+          <button class="btn btn-outline-light upvote-btn" data-post-id="${post._id}">
             <img class="vote-icon" src="./sourceimages/up-arrow.svg" alt="Upvote" />
           </button>
-          <p>${post.voteCount || 0}</p>
-          <button class="btn btn-outline-light">
+          <p class="vote-count">${post.voteCount || 0}</p>
+          <button class="btn btn-outline-light downvote-btn" data-post-id="${post._id}">
             <img class="vote-icon" src="./sourceimages/bottom-arrow.svg" alt="Downvote" />
           </button>
           <p>${post.commentCount || 0} comments</p>
@@ -65,6 +66,37 @@ function renderPosts(posts) {
     `,
     )
     .join('');
+
+  // Attach vote button listeners
+  document.querySelectorAll('.upvote-btn').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const postId = btn.dataset.postId;
+      vote(postId, true);
+    });
+  });
+  document.querySelectorAll('.downvote-btn').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const postId = btn.dataset.postId;
+      vote(postId, false);
+    });
+  });
+}
+
+async function vote(postId, value) {
+  const token = localStorage.getItem('token');
+  if (!token) {
+    alert('Please log in to vote.');
+    return;
+  }
+  try {
+    await apiPost('/votes', { postId, value });
+    loadUserPosts();
+  } catch (err) {
+    alert('Failed to record vote.');
+    console.error('Vote failed:', err);
+  }
 }
 
 async function loadUserPosts() {
@@ -136,7 +168,6 @@ async function PostForm() {
   if (newPostForm) {
     newPostForm.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const token = localStorage.getItem('token');
       if (!token) return alert('Please log in to create a post.');
 
       const title = document.getElementById('post-title').value.trim();

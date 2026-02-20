@@ -1,8 +1,10 @@
+import { apiGet, apiPost, apiPut, apiDelete } from './api.js';
+
 
 document.addEventListener('DOMContentLoaded', () => {
   const username = localStorage.getItem('username');
   if (username) {
-    document.querySelectorAll('.profile').forEach(el => (el.textContent = username));
+    document.querySelectorAll('.profile').forEach((el) => (el.textContent = username));
   }
 });
 
@@ -10,6 +12,7 @@ const postContainer = document.getElementById('post-container');
 const categoryButtons = document.querySelectorAll('.category-btn');
 const searchBar = document.querySelector('.search-bar');
 const searchForm = document.querySelector('.search-container form');
+const token = localStorage.getItem('token');
 
 let activeCategory = '';
 
@@ -22,7 +25,7 @@ function renderPosts(posts) {
     postContainer.innerHTML = '<p class="text-muted">No posts found.</p>';
     return;
   }
-  
+
   postContainer.innerHTML = posts
     .map(
       (post) => `
@@ -59,11 +62,11 @@ function renderPosts(posts) {
             : ''
         }
         <div class="vote-buttons">
-          <button class="btn btn-outline-light">
+          <button class="btn btn-outline-light upvote-btn" data-post-id="${post._id}">
             <img class="vote-icon" src="./sourceimages/up-arrow.svg" alt="Upvote" />
           </button>
-          <p>${post.voteCount || 0}</p>
-          <button class="btn btn-outline-light">
+          <p class="vote-count">${post.voteCount || 0}</p>
+          <button class="btn btn-outline-light downvote-btn" data-post-id="${post._id}">
             <img class="vote-icon" src="./sourceimages/bottom-arrow.svg" alt="Downvote" />
           </button>
           <p>${post.commentCount || 0} comments</p>
@@ -72,6 +75,37 @@ function renderPosts(posts) {
     `,
     )
     .join('');
+
+  // Attach vote button listeners
+  document.querySelectorAll('.upvote-btn').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const postId = btn.dataset.postId;
+      vote(postId, true);
+    });
+  });
+  document.querySelectorAll('.downvote-btn').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const postId = btn.dataset.postId;
+      vote(postId, false);
+    });
+  });
+}
+
+async function vote(postId, value) {
+  const token = localStorage.getItem('token');
+  if (!token) {
+    alert('Please log in to vote.');
+    return;
+  }
+  try {
+    await apiPost('/votes', { postId, value });
+    loadPosts();
+  } catch (err) {
+    alert('Failed to record vote.');
+    console.error('Vote failed:', err);
+  }
 }
 
 // Load posts — uses search API if filtering, otherwise loads all posts
@@ -129,8 +163,6 @@ if (searchForm) {
     loadPosts();
   });
 }
-
-
 
 // Load all posts on page load
 loadPosts();
