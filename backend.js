@@ -18,6 +18,7 @@ app.use('/api/comments', commentsRouter);
 app.use('/api/votes', votesRouter);
 app.use('/api/trending', trendingRouter);
 app.use('/api/search', searchRouter);
+app.use('/LICENSE', express.static('LICENSE'));
 
 connectDB().then(() => {
   app.listen(PORT, () => {
