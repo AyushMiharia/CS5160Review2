@@ -12,7 +12,9 @@
       integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
       crossorigin="anonymous"
     />
+    <link rel="stylesheet" href="./css/post.css" />
     <link rel="stylesheet" href="./css/main.css" />
+    <link rel="stylesheet" href="./css/comments.css" />
   </head>
   <body>
     <!-- Sidebar Button for small screen -->
@@ -55,6 +57,7 @@
           <div class="link">
             <a class="nav-link" href="./trending.html"><h3>Trending</h3></a>
           </div>
+          <div class="auth-btn-container"></div>
         </nav>
         <footer>
           <p>&copy; 2026 News Node &bull; <a href="/LICENSE">MIT License</a></p>
@@ -80,6 +83,7 @@
             <div class="link">
               <a class="nav-link" href="./trending.html"><h2>Trending</h2></a>
             </div>
+            <div class="auth-btn-container"></div>
           </nav>
           <footer>
             <p>&copy; 2026 News Node &bull; <a href="/LICENSE">MIT License</a></p>
@@ -129,5 +133,20 @@
       integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
       crossorigin="anonymous"
     ></script>
+    <script type="module">
+      const token = localStorage.getItem('token');
+      document.querySelectorAll('.auth-btn-container').forEach((el) => {
+        if (token) {
+          el.innerHTML = '<button class="btn btn-outline-light w-100">Logout</button>';
+          el.querySelector('button').addEventListener('click', () => {
+            localStorage.removeItem('token');
+            localStorage.removeItem('refreshToken');
+            window.location.href = './index.html';
+          });
+        } else {
+          el.innerHTML = '<a href="./login.html" class="btn btn-outline-light w-100">Login</a>';
+        }
+      });
+    </script>
   </body>
 </html>
