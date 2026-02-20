@@ -1,32 +1,30 @@
-import { Router } from "express";
-import { getDB } from "../db/connection.js";
+import { Router } from 'express';
+import { getDB } from '../db/connection.js';
 
 const router = Router();
 
 // GET /api/trending?period=today|week|month
-router.get("/", async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const db = getDB();
-    const { period = "today", limit = "20", page = "1" } = req.query;
+    const { period = 'today', limit = '20', page = '1' } = req.query;
 
     // Calculate the start date based on period
     const now = new Date();
     let startDate;
 
     switch (period) {
-      case "today":
+      case 'today':
         startDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
         break;
-      case "week":
+      case 'week':
         startDate = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
         break;
-      case "month":
+      case 'month':
         startDate = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
         break;
       default:
-        return res
-          .status(400)
-          .json({ error: "Invalid period. Use today, week, or month." });
+        return res.status(400).json({ error: 'Invalid period. Use today, week, or month.' });
     }
 
     const pageNum = parseInt(page, 10) || 1;
@@ -35,13 +33,13 @@ router.get("/", async (req, res) => {
 
     // Fetch trending posts sorted by a score combining votes and comments
     const posts = await db
-      .collection("posts")
+      .collection('posts')
       .aggregate([
         { $match: { createdAt: { $gte: startDate } } },
         {
           $addFields: {
             trendingScore: {
-              $add: [{ $multiply: ["$voteCount", 2] }, "$commentCount"],
+              $add: [{ $multiply: ['$voteCount', 2] }, '$commentCount'],
             },
           },
         },
@@ -50,13 +48,13 @@ router.get("/", async (req, res) => {
         { $limit: limitNum },
         {
           $lookup: {
-            from: "users",
-            localField: "userId",
-            foreignField: "_id",
-            as: "author",
+            from: 'users',
+            localField: 'userId',
+            foreignField: '_id',
+            as: 'author',
           },
         },
-        { $unwind: "$author" },
+        { $unwind: '$author' },
         {
           $project: {
             _id: 1,
@@ -68,18 +66,16 @@ router.get("/", async (req, res) => {
             commentCount: 1,
             trendingScore: 1,
             createdAt: 1,
-            "author.username": 1,
-            "author.firstName": 1,
-            "author.lastName": 1,
+            'author.username': 1,
+            'author.firstName': 1,
+            'author.lastName': 1,
           },
         },
       ])
       .toArray();
 
     // Get total count for pagination
-    const total = await db
-      .collection("posts")
-      .countDocuments({ createdAt: { $gte: startDate } });
+    const total = await db.collection('posts').countDocuments({ createdAt: { $gte: startDate } });
 
     res.json({
       posts,
@@ -91,8 +87,8 @@ router.get("/", async (req, res) => {
       },
     });
   } catch (err) {
-    console.error("Error fetching trending posts:", err);
-    res.status(500).json({ error: "Failed to fetch trending posts." });
+    console.error('Error fetching trending posts:', err);
+    res.status(500).json({ error: 'Failed to fetch trending posts.' });
   }
 });
 

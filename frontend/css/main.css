@@ -20,7 +20,7 @@ h5,
 h6,
 a,
 p {
-  font-family: "Courier New", monospace;
+  font-family: 'Courier New', monospace;
   color: #fff;
   margin-bottom: 0;
 }
@@ -40,7 +40,7 @@ p {
 }
 
 .btn {
-  font-family: "Courier New", monospace;
+  font-family: 'Courier New', monospace;
   border-radius: 20px;
   border: #fff solid 2px;
   color: #fff;
@@ -76,8 +76,9 @@ footer {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  overflow: scroll;
+  overflow-y: auto;
   height: 80vh;
+  padding-right: 10px;
 }
 
 /* Search Bar Style */
@@ -100,9 +101,9 @@ footer {
   padding-top: 10px;
 }
 
-input[type="text"] {
+input[type='text'] {
   outline: none;
-  font-family: "Courier New", monospace;
+  font-family: 'Courier New', monospace;
 }
 
 .search-submit {

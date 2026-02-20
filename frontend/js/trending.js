@@ -8,7 +8,8 @@ async function loadTrending(period) {
   trendingList.innerHTML = '<p class="text-center text-muted">Loading...</p>';
 
   try {
-    const posts = await apiGet(`/trending?period=${period}`);
+    const data = await apiGet(`/trending?period=${period}`);
+    const posts = data.posts || data;
 
     if (posts.length === 0) {
       trendingList.innerHTML = '<p class="text-muted">No trending posts for this period.</p>';
