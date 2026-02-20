@@ -22,7 +22,7 @@ function renderPosts(posts) {
     postContainer.innerHTML = '<p class="text-muted">No posts found.</p>';
     return;
   }
-
+  
   postContainer.innerHTML = posts
     .map(
       (post) => `
@@ -132,5 +132,3 @@ if (searchForm) {
 
 // Load all posts on page load
 loadPosts();
-
-export { showError, renderPosts };
