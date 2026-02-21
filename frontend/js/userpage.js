@@ -1,6 +1,7 @@
 import { refreshToken } from './api.js';
 import { apiGet, apiPost, apiPut, apiDelete } from './api.js';
 
+const profileNameElem = document.getElementById('username');
 const postContainer = document.getElementById('post-container');
 const username = localStorage.getItem('username');
 const token = localStorage.getItem('token');
@@ -100,7 +101,6 @@ async function vote(postId, value) {
 }
 
 async function loadUserPosts() {
-  const username = document.getElementById('username').textContent.trim();
   try {
     const res = await fetch(`/api/posts/user/${username}`);
     if (!res.ok) {
@@ -157,6 +157,7 @@ async function loadUserPosts() {
     `;
     renderPosts(posts);
   } catch (err) {
+    console.log(err);
     showError('Failed to load user posts.');
   }
 }

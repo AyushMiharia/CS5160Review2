@@ -19,7 +19,7 @@ router.get('/', async (req, res) => {
 // GET posts from a user — must be ABOVE /:postId
 router.get('/user/:username', async (req, res) => {
   try {
-    const { username } = req.params;
+    const { username } = req.params || req.body.username;
     if (!username) {
       return res.status(400).json({ error: 'Invalid username.' });
     }
