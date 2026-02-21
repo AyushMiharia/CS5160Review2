@@ -20,7 +20,8 @@ NewsNode is a news discussion platform where users can share, discover, and disc
 ## Website/Demo Link
 
 Link to application : https://nodenews-crjx.onrender.com/
-Link to Demo :
+
+Link to Demo : https://youtu.be/s7vjb0nSDeI
 
 ## Screenshot
 
