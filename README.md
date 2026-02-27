@@ -132,5 +132,5 @@ This project is licensed under the [MIT License](./LICENSE).
 
 ### 📝 Peer Review Note (CS 5610)
 
-This fork was created for a CS 5610 peer review. I really liked the Node.js backend architecture, the news aggregation API integration, and the clean frontend design. Great work!
+This fork was created for a CS 5610 peer review. I'm impressed by the comprehensive project scope—the voting/trending system with time-based filters is well thought-out, and the two-developer split between auth/posts and comments/search is clean. The use of MongoDB Atlas with a seed script (1,150 records) shows attention to testing at scale.
 
