@@ -130,3 +130,7 @@ http://localhost:3000
 
 This project is licensed under the [MIT License](./LICENSE).
 
+### 📝 Peer Review Note (CS 5610)
+
+This fork was created for a CS 5610 peer review. I really liked the Node.js backend architecture, the news aggregation API integration, and the clean frontend design. Great work!
+
