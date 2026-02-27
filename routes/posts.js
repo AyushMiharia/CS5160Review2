@@ -5,6 +5,7 @@ import { authenticateToken } from '../middleware/auth.js';
 
 const router = Router();
 
+// Peer review: The trending algorithm with time-based filtering (today/week/month) is a solid feature. Consider adding logging/monitoring for vote counts to track engagement patterns over time.
 // GET all posts
 router.get('/', async (req, res) => {
   try {
